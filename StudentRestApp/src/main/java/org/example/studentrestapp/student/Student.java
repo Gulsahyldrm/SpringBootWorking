@@ -15,7 +15,7 @@ public class Student {
                     allocationSize = 1
     )
     @GeneratedValue(
-                    strategy =  GenerationType.SEQUENCE,
+                    strategy =  GenerationType.SEQUENCE,// AUTO-IDENTITY-TABLE performans açısından dolayı fazla tercih edilmemektedir
                     generator = "student_sequence"
     )
     private Long id;

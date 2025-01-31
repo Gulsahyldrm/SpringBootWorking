@@ -8,11 +8,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="StudentRestApp" />
         <module name="JpaWorking" />
+        <module name="JPA-HibernateApp" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="JPA-HibernateApp" options="-parameters" />
       <module name="JpaWorking" options="-parameters" />
       <module name="StudentRestApp" options="-parameters" />
     </option>

@@ -8,8 +8,10 @@ public class IocAndDependecyInjectionApplication {
 
     public static void main(String[] args) {
 
-        CustomerManager manager = new CustomerManager(new MySqlCustomerDal());
+       /* CustomerManager manager = new CustomerManager(new MySqlCustomerDal());
         manager.add();
+     */
+
 
         //SpringApplication.run(IocAndDependecyInjectionApplication.class, args);
     }

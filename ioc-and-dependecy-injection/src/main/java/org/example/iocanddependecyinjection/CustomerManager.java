@@ -1,6 +1,8 @@
 package org.example.iocanddependecyinjection;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 //!!implement veya extend siz clas olmasın bussines katmanının da controller tarafında kullanılması amacıyla Interface oluştur!
 public class CustomerManager implements ICustomerService {
 
@@ -16,6 +18,16 @@ public class CustomerManager implements ICustomerService {
     public void setCustomerDal(ICustomerDal customerDal) {
         this.customerDal = customerDal;
     }
+
+    //Field Injection (Alan Üzerinden Enjeksiyon)
+
+    //Test yazarken veya mock'lama yaparken esneklik düşer çünkü bağımlılığa dışarıdan erişim zor olur.
+    //Küçük projelerde tercih edilir, ancak büyük projelerde önerilmez.
+
+    /*@Autowired
+    private ICustomerDal customerDal;
+*/
+
 
 
     public void add(){

@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/JPA-HibernateApp/pom.xml" />
         <option value="$PROJECT_DIR$/ioc-and-dependecy-injection/pom.xml" />
         <option value="$PROJECT_DIR$/model-mapper-working/pom.xml" />
+        <option value="$PROJECT_DIR$/server-side-pagination/pom.xml" />
       </list>
     </option>
   </component>

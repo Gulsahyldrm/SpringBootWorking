@@ -1,18 +1,19 @@
 package org.example.modelmapperworking.service;
 
+import org.example.modelmapperworking.dto.UserDto;
 import org.example.modelmapperworking.entity.User;
 
 import java.util.List;
 
 public interface UserService {
 
-    User createUser (User user);
+    UserDto createUser (UserDto user);
 
-    List<User> getUsers();
+    List<UserDto> getUsers();
 
-    User getUser (Long id);
+    UserDto getUser (Long id);
 
-    User updateUser(Long id, User user);
+    UserDto updateUser(Long id, UserDto user);
 
-    User deleteUser(User user);
+    Boolean deleteUser(Long id);
 }

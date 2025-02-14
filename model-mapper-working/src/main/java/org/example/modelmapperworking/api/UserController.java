@@ -1,5 +1,6 @@
 package org.example.modelmapperworking.api;
 
+import org.example.modelmapperworking.dto.UserDto;
 import org.example.modelmapperworking.entity.User;
 import org.example.modelmapperworking.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -7,8 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/user")
+@RestController("/user")
 public class UserController {
 
     private final UserService userService;
@@ -18,18 +18,18 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<User> create(@RequestBody User user){
-        User resultUser = userService.createUser(user);
+    public ResponseEntity<UserDto> create(@RequestBody UserDto user){
+        UserDto resultUser = userService.createUser(user);
         return ResponseEntity.ok(resultUser);
     }
     @GetMapping("/getAll")
-    public ResponseEntity <List<User>> getUsers(){
-            List<User>users = userService.getUsers();
+    public ResponseEntity <List<UserDto>> getUsers(){
+            List<UserDto> users = userService.getUsers();
             return ResponseEntity.ok(users);
     }
     @GetMapping("/getById/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        User user = userService.getUser(id);
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
+        UserDto user = userService.getUser(id);
         if (user != null) {
             return ResponseEntity.ok(user);
         } else {
@@ -38,15 +38,15 @@ public class UserController {
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity <User> updateUser( @PathVariable Long id, @RequestBody User user){
-        User userResult =userService.updateUser(id,user);
+    public ResponseEntity <UserDto> updateUser( @PathVariable Long id, @RequestBody UserDto user){
+        UserDto userResult =userService.updateUser(id,user);
         return ResponseEntity.ok(userResult);
     }
 
     @DeleteMapping
-    public ResponseEntity<User> deleteUser(@RequestBody User user){
-         User resultUser=userService.deleteUser(user);
-        return ResponseEntity.ok(resultUser);
+    public ResponseEntity<Boolean> deleteUser(@PathVariable("id") Long id){
+                Boolean status = userService.deleteUser(id);
+                return ResponseEntity.ok(status);
     }
 
 }

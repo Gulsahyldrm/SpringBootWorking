@@ -1,59 +1,71 @@
 package org.example.modelmapperworking.service.impl;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.example.modelmapperworking.dto.UserDto;
 import org.example.modelmapperworking.entity.User;
 import org.example.modelmapperworking.repository.UserRepository;
 import org.example.modelmapperworking.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
         this.userRepository = userRepository;
-    }
-
-
-
-    @Override
-    public User createUser(User user) {
-        return userRepository.save(user);
+        this.modelMapper = modelMapper;
     }
 
     @Override
-    public List<User> getUsers() {
-        return userRepository.findAll();
+    public UserDto createUser(UserDto userDto) {
+        User user = modelMapper.map(userDto, User.class);
+        return modelMapper.map(userRepository.save(user), UserDto.class);
     }
 
     @Override
-    public User getUser(Long id) {
+    public List<UserDto> getUsers() {
+        List<User> users = userRepository.findAll();
+        List<UserDto> userDtos = users.stream().map(user -> modelMapper.map(user, UserDto.class)).collect(Collectors.toList());
+        return userDtos;
+    }
+
+    @Override
+    public UserDto getUser(Long id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
-            return user.get();
+            return modelMapper.map(user.get(), UserDto.class);
         }
         return null;
     }
 
     @Override
-    public User updateUser(Long id, User user) {
+    public UserDto updateUser(Long id, UserDto user) {
         Optional<User> userResult = userRepository.findById(id);
         if (userResult.isPresent()) {
             userResult.get().setFirstName(user.getFirstName());
             userResult.get().setLastName(user.getLastName());
 
 
-            return userRepository.save(userResult.get());
+            return modelMapper.map(userRepository.save(userResult.get()), UserDto.class);
         }
         return null;
     }
 
     @Override
-    public User deleteUser(User user) {
-        return null;
+    public Boolean deleteUser(Long id) {
+        Optional<User> userResult = userRepository.findById(id);
+        if (userResult.isPresent()) {
+            userRepository.deleteById(id);
+            return  true;
+        }
+        return false;
     }
 }
